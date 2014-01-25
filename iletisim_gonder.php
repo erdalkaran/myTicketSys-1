@@ -4,12 +4,12 @@ include_once 'config.php';
 //atamalar
 
 //formdan gelen veri
-$ad = $_POST['ad'];
-$soyad = $_POST['soyad'];
-$eposta = $_POST['email'];
-$kategori_id = $_POST['id_kategori'];
-$ticketbaslik = $_POST['baslik'];
-$ticketdetay = $_POST['mesaj'];
+$ad             = $_POST['ad'];
+$soyad          = $_POST['soyad'];
+$eposta         = $_POST['email'];
+$kategori       = $_POST['kategori'];
+$ticketbaslik   = $_POST['baslik'];
+$ticketdetay    = $_POST['mesaj'];
 
 $dosya1 = $_FILES['dosya1'];
 
@@ -60,6 +60,7 @@ if( !empty( $dosya1 ) && $dosya1['size'] > 3 * 1024 * 1024 ){
 }
 
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,7 +87,7 @@ if( !empty( $dosya1 ) && $dosya1['size'] > 3 * 1024 * 1024 ){
             $sonuc1 = $DB->query( $sql1);
             
             $sql2 = "INSERT INTO "
-                    . "kategori_id(kategori_id) "
+                    . "kategori_id(kategori) "
                     . "VALUES('$kategori')";
             
             $sonuc2 = $DB->query( $sql2);
@@ -106,6 +107,70 @@ if( !empty( $dosya1 ) && $dosya1['size'] > 3 * 1024 * 1024 ){
                 echo $DB->last_error;
             }
         }
+ if($sonuc1==1 && $sonuc2==1 && $sonuc3==1){
+     
+//Kullanıcıya gonderilecek mail
+     
+    $mail = new PHPMailer;
+
+    $mail->isSMTP();                                      // Set mailer to use SMTP
+    $mail->Host = 'smtp1.example.com;smtp2.example.com';  // Specify main and backup server
+    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+    $mail->Username = 'hasanaytac';                            // SMTP username
+    $mail->Password = '';                           // SMTP password
+    $mail->SMTPSecure = 'tls';                            // Enable encryption, 'ssl' also accepted
+
+    $mail->From = 'admin@myticketsys.com';
+    $mail->FromName = 'TicketSys';
+    $mail->addAddress($eposta, $ad.$soyad);  // Add a recipient
+    $mail->addReplyTo('admin@myticketsys.com', 'TicketSysInformation');
+
+
+    $mail->WordWrap = 50;                                 // Set word wrap to 50 characters
+    $mail->isHTML(true);                                  // Set email format to HTML
+
+    $mail->Subject = 'Gönderiniz Hakkında';
+    $mail->Body    =  '<b>'.$ticketbaslik.'</b>';
+    $mail->AltBody = $ticketdetay;
+
+    if(!$mail->send()) {
+        echo 'Mail size gönderilemedi...'.'</br>';
+        echo 'Mailer Error: ' . $mail->ErrorInfo;
+        exit;
+    }
+
+    echo 'Mailinizi kontrol ediniz...';
+
+//Admine gonderilecek mail
+    
+    $mail = new PHPMailer;
+
+    $mail->isSMTP();                                      // Set mailer to use SMTP
+    $mail->Host = 'smtp1.example.com;smtp2.example.com';  // Specify main and backup server
+    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+    $mail->Username = 'hasanaytac';                            // SMTP username
+    $mail->Password = '';                           // SMTP password
+    $mail->SMTPSecure = 'tls';                            // Enable encryption, 'ssl' also accepted
+
+    $mail->From = $eposta;
+    $mail->FromName = $ad.$soyad;
+    $mail->addAddress('admin@myticketsys.com', $ad.$soyad);  // Add a recipient
+
+
+    $mail->WordWrap = 50;                                 // Set word wrap to 50 characters
+    $mail->isHTML(true);                                  // Set email format to HTML
+
+    $mail->Subject = 'Yeni Ticket Geldi.';
+    $mail->Body    =  '<b>'.$ticketbaslik.'</b>';
+    $mail->AltBody = $ticketdetay;
+
+    if(!$mail->send()) {
+       echo 'Mail admine gönderilemedi...'.'</br>';
+       echo 'Mailer Error: ' . $mail->ErrorInfo;
+       exit;
+    }
+}
+
     ?>
 </div>
 </body>

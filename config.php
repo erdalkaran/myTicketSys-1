@@ -4,6 +4,8 @@ error_reporting( 1 );
 
 include_once "lib/ezSQL/shared/ez_sql_core.php";
 include_once "lib/ezSQL/mysqli/ez_sql_mysqli.php";
+include_once "lib/SmtpMail/PHPMailer-master/PhpMailerAutload.php";
+include_once "lib/SmtpMail/PHPMailer-master/class.phpmailer.php";
 
 $DB = new ezSQL_mysqli('root','','ibbticket','localhost');
 $DB->query('SET character_set_client = utf8;');

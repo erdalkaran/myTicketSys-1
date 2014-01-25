@@ -13,7 +13,7 @@ and open the template in the editor.
     <form action="newTicket.php" name="newTicket">
         <input type="submit" value="Yeni Ticket Oluştur" name="newTicket" />
     </form>
-    <form name="lookTickets">
+    <form action="looktickets.php" name="lookTickets">
         <input type="submit" value="Ticketlara Gözat" name="lookTickets" />
     </form>
     

@@ -9,6 +9,19 @@ and open the template in the editor.
     <title>TODO supply a title</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css" type="text/css" /> 
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>    
+    <script type="text/javascript">
+         $(function() {
+            //autocomplete
+            $("#baslik").autocomplete({
+             source: "source.php", 
+             minLength: 3
+        });
+        });
+        
+        </script>
 </head>
 <body>
 <div>
@@ -27,12 +40,10 @@ $DB = new ezSQL_mysqli('root','','ibbticket','localhost');
         Email: <input type="text" name="email" value="" placeholder="Eposta adresinizi girin." />
         <br />
         Kategori: <input type="text" name="kategori" value="" placeholder="Kategori giriniz." />
-                    
         <br />
-        
-        Başlık: <input type="text" name="baslik" value="" placeholder="Mesaj başlığınızı girin." />
+        Başlık: <input type="text" name="baslik" value="" placeholder="Mesaj başlığınızı girin."
+        class ='baslik'  />
         <br />
-        
         Mesajınız: <br />
         <textarea name="mesaj" rows="4" cols="20" placeholder="Mesajınızı girin."></textarea>
         <br />
