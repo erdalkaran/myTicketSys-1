@@ -28,6 +28,9 @@ and open the template in the editor.
     <form action="yanitlanmis_ticketlar.php" name="lookTickets">
         <input type="submit" value="Yanıtlanmış Ticketlara Gözat" name="AnsweredTicketList" />
     </form>
+    <form action="tekraryanit.php" name="lookTickets">
+        <input type="submit" value="Tekrar Yanıt Bekleyen Ticketlara Gözat" name="ReAnsweredTicketList" />
+    </form>
     <form action="kategori_ekle.php" name="lookTickets">
         <input type="submit" value="Kategori Ekle" name="AddNewCategory" />
     </form>

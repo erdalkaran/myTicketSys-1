@@ -19,11 +19,10 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-    <title>YANITLANMIŞ TICKETLAR</title>
+    <title>YENİ TICKETLAR</title>
 </head>
 <body>
-<b>YANITLANMIŞ TICKETLAR </b>
-        
+    <b>YENİ TICKETLAR</b>
     <br>
 <?php
 
@@ -31,16 +30,26 @@ and open the template in the editor.
 echo "
 <html>
 <head>
-<title>YANITLANMIŞ TICKETLAR</title>
+<title>Veri Tabanındaki Bilgileri Listeleme</title>
 </head>
 <body><table width=\"100%\">
+<tr>
+<td>ticketid</td>
+<td>kategori</td>
+<td>ticketbaslik</td>
+<td>ticketdetay</td>
+<td>ticketdurum</td>
+<td>tarih</td>
+<td>dosya1</td>
+<td>cevap</td>
+<td>ticketdetay2</td>
+<td>cevap2</td>
+</tr>
 ";
 
-require 'config.php';
+require_once 'config.php';
 
-$sor = $DB->get_results("select * from ticket_id where cevap <> '' ") ;
-if($sor != 0){
-    
+$sor = $DB->get_results("select * from ticket_id where ticketdetay2 <> '' ") ;
 
 foreach ( $sor as $kayit){
     $ticketid            = $kayit->ticket_id;
@@ -51,20 +60,10 @@ foreach ( $sor as $kayit){
     $tarih               = $kayit->tarih; 
     $dosya1              = $kayit->dosya1;
     $cevap               = $kayit->cevap; 
-
+    $ticketdetay2        = $kayit->ticketdetay2;
+    $cevap2              = $kayit->cevap2;
 
 echo "
-<tr>
-<td>ticketid</td>
-<td>kategori</td>
-<td>ticketbaslik</td>
-<td>ticketdetay</td>
-<td>ticketdurum</td>
-<td>tarih</td>
-<td>dosya1</td>
-<td>cevap</td>
-</tr>
-
 <tr>
 <td>$ticketid</td>
 <td>$kategori</td>
@@ -74,10 +73,11 @@ echo "
 <td>$tarih</td>
 <td>$dosya1</td>
 <td>$cevap</td>   
+<td>$ticketdetay2</td> 
+<td>$cevap2</td> 
 </tr>
 ";
 }
-}else echo'Yanıtlanmış ticket YOK';
 echo"
 
 </table>
@@ -85,6 +85,16 @@ echo"
 </html>";
 
 ?>
-</body>
-</html>
+     <br />
+     <form action="tekrarcevapgonder.php" method ="POST" name="Gönder">
+        ID: <input type='text' name="ticketid" value="" placeholder="Ticket id giriniz" />
+        <br />
+        Cevap: <br />
+        <textarea name="cevap" rows="4" cols="20" placeholder="Cevabınızı giriniz"></textarea>
+        <br />
+        <input type="submit" value="Gönder" name="Sorgu" />
+    </form>
+
+
+
 

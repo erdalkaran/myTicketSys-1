@@ -1,18 +1,16 @@
 <?php
 include_once 'config.php';
 
-$req = "SELECT ticketbaslik "
-	."FROM ticket_id "
-	."WHERE ticketbaslik LIKE '%".$_REQUEST['baslik']."%' "; 
+$options = array();
+$term    = $_GET['term'];
+$results = $db->get_results("select * from ticket_id where ticketbas1ik like '".$term."%'"); //Kullandığımız metoda göre veritabanında arama yapıyoruz
 
-$query = mysql_query($req);
-
-while($row = mysql_fetch_array($query))
+foreach($results as $k=>$v)
 {
-	$results[] = array('label' => $row['ticketbaslik']);
+   $options[] = $v->name;
 }
 
-echo json_encode($results);
+echo json_encode($options);
 
 ?>
 

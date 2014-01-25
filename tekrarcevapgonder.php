@@ -20,24 +20,11 @@ if( empty( $id ) ){
     $hataMesaj[] = 'ID giriniz.';
 }
 
-$sql1 = "UPDATE ticket_id SET cevap='".$cevap."' WHERE ticket_id ='".$id."' ";
+$sql1 = "UPDATE ticket_id SET cevap2 = '".$cevap."' WHERE ticket_id ='".$id."' ";
 
 $sonuc1 = $DB->query( $sql1);
 
-$sor = $DB->get_results("select * from ticket_id order by ticket_id WHERE ticket_id='".$id."' ");
 
-echo $cevap;
-
-foreach ( $sor as $kayit){
-    $ticketid            = $kayit->ticket_id;
-    $kategori            = $kayit->kategori;
-    $ticketbaslik        = $kayit->ticketbaslik;
-    $ticketdetay         = $kayit->ticketdetay; 
-    $ticketdurum         = $kayit->ticketdurum;
-    $tarih               = $kayit->tarih; 
-    $dosya1              = $kayit->dosya1;
-    $cevap               = $kayit->cevap; 
-}   
 if($sonuc1 == 1){
     
 

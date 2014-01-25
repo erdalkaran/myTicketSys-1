@@ -19,7 +19,7 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-    <title></title>
+    <title>YENİ TICKETLAR</title>
 </head>
 <body>
     <b>YENİ TICKETLAR</b>
@@ -45,7 +45,7 @@ echo "
 </tr>
 ";
 
-require 'config.php';
+require_once 'config.php';
 
 $sor = $DB->get_results("select * from ticket_id where cevap like '' ") ;
 

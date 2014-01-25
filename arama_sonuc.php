@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
 -->
 <html>
     <head>
         <meta charset="UTF-8">
-    <title></title>
+    <title>SONUCLARIN LİSTELENMESİ</title>
 </head>
 <body>
-    
     <br>
 <?php
 
+require 'config.php';
 
 echo "
 <html>
@@ -33,8 +30,8 @@ echo "
 </tr>
 ";
 
-require 'config.php';
-$kelime             = $_POST['arama'];
+$kelime    = $_POST['arama'];
+
 echo "Aradıgınız kelime : ".$kelime;
 
 if( empty( $kelime ) ){
@@ -59,7 +56,6 @@ foreach ( $sor as $kayit){
     $dosya1              = $kayit->dosya1;
     $cevap               = $kayit->cevap; 
 
-
 echo "
 <br>
 <td>$ticketid</td>
@@ -73,8 +69,8 @@ echo "
 </br>
 ";
 }
-echo"
 
+echo"
 </table>
 </body>
 </html>";
