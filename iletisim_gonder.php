@@ -19,6 +19,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 
 //kontroller
 $hataMesaj = array();
+
 if( empty( $ad ) ){
     $hataMesaj[] = 'Ad boş bırakılamaz.';
 }
@@ -64,7 +65,7 @@ if( !empty( $dosya1 ) && $dosya1['size'] > 3 * 1024 * 1024 ){
 <!DOCTYPE html>
 <html>
 <head>
-    <title>İletişim formu</title>
+    <title>TICKET FORMU</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
 </head>
@@ -86,17 +87,20 @@ if( !empty( $dosya1 ) && $dosya1['size'] > 3 * 1024 * 1024 ){
             
             $sonuc1 = $DB->query( $sql1);
             
+            
             $sql2 = "INSERT INTO "
                     . "kategori_id(kategori) "
                     . "VALUES('$kategori')";
             
             $sonuc2 = $DB->query( $sql2);
             
+            
             $sql3 = "INSERT INTO "
                     . "ticket_id(ticketbaslik,ticketdetay,tarih,dosya1) "
                     . "VALUES('$ticketbaslik' , '$ticketdetay' , '$tarih', '".$dosya1['name']."')";
             
             $sonuc3 = $DB->query( $sql3);
+            
             
             if($sonuc1==1 && $sonuc2==1 && $sonuc3==1){
                 echo 'Kayıt başarılı..';
@@ -161,7 +165,7 @@ if( !empty( $dosya1 ) && $dosya1['size'] > 3 * 1024 * 1024 ){
     $mail->isHTML(true);                                  // Set email format to HTML
 
     $mail->Subject = 'Yeni Ticket Geldi.';
-    $mail->Body    =  '<b>'.$ticketbaslik.'</b>';
+    $mail->Body    =  'http://localhost/ibbTicket/cevap.php?ticketid='.$id.'&Sorgu=Sorgula';
     $mail->AltBody = $ticketdetay;
 
     if(!$mail->send()) {
